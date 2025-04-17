@@ -5,7 +5,7 @@ using System.Collections;
 public class JailerDisplay : MonoBehaviour
 {
     public JailerBehavior jailer;
-    private RawImage rawImage;
+    private RawImage rawImage; // stores delay before becoming alert
 
     private JailerBehavior.JailerState _lastState;
     private Coroutine transitionRoutine;
