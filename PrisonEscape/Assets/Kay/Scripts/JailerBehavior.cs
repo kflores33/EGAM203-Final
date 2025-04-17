@@ -28,7 +28,7 @@ public class JailerBehavior : MonoBehaviour
         for (_timeRemaining = timeToWait; _timeRemaining > 0; _timeRemaining -= Time.deltaTime)
         {
             yield return null;
-        } // functions like waitforseconds but you can check the amount of time left
+        }
 
         if (CurrentState == JailerState.Away)
         {
@@ -41,7 +41,7 @@ public class JailerBehavior : MonoBehaviour
             Debug.Log("Jailer is now Away");
         }
 
-        _timeRemaining = 0f; // reset time remaining
+        _timeRemaining = 0f;
         _switchStateCoroutine = null;
     }
 
@@ -52,7 +52,8 @@ public class JailerBehavior : MonoBehaviour
             case JailerState.Away:
                 if (_switchStateCoroutine == null)
                 {
-                    _switchStateCoroutine = StartCoroutine(CountdownToSwitchState(DefaultTimeToWait));
+                    float randomizedTime = Random.Range(5f, 20f); // randomize 10-20s only for Away state
+                    _switchStateCoroutine = StartCoroutine(CountdownToSwitchState(randomizedTime));
                 }
                 break;
             case JailerState.Alert:
@@ -67,14 +68,14 @@ public class JailerBehavior : MonoBehaviour
 
     private void UpdateAlert()
     {
-        if(_playerState.GetCurrentState() == PlayerState.PlayerStates.Misbehaving) // if player is caught misbehaving
+        if (_playerState.GetCurrentState() == PlayerState.PlayerStates.Misbehaving)
         {
             Debug.Log("Jailer caught the player misbehaving!");
             // end game
         }
     }
 
-    public void DistractJailerFor(float timeToWait) // to be used during idle state
+    public void DistractJailerFor(float timeToWait)
     {
         if (CurrentState == JailerState.Alert)
         {
@@ -84,7 +85,6 @@ public class JailerBehavior : MonoBehaviour
 
         float remainingTime = _timeRemaining;
 
-        // Stop the current coroutine if it's running
         if (_switchStateCoroutine != null)
         {
             StopCoroutine(_switchStateCoroutine);
