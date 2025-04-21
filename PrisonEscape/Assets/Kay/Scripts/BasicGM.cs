@@ -11,7 +11,9 @@ public class BasicGM : MonoBehaviour
     public GameObject endScreenLose;
 
     public BasicGM instance;
+    public GameObject letterImage; // 把 UI Image 拖到这里
 
+    private bool isVisible = false;
     private void Start()
     {
         instance = this;
@@ -33,6 +35,13 @@ public class BasicGM : MonoBehaviour
         {
             Debug.Log($"[Debug] H pressed. TimeRemaining: {timeRemaining:F2}");
             ReduceTimeRemaining(10f);
+        }
+
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            isVisible = !isVisible;
+            letterImage.SetActive(isVisible);
         }
     }
 

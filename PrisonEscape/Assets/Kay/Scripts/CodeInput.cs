@@ -1,62 +1,43 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.Collections;
 
 public class CodeInput : MonoBehaviour
 {
-    public List<int> CorrectCode;
+    public BasicGM gameManager;
 
-    public List<int> PlayerInput = new List<int>();
+    
+    public List<char> CorrectCode;
+
+    public List<char> PlayerInput = new List<char>();
+    private void Start()
+    {
+        CorrectCode = new List<char> { 'c', 'b', 'd','a' };
+    }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        
+        for (KeyCode key = KeyCode.A; key <= KeyCode.Z; key++)
         {
-            AddToInput(1);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            AddToInput(2);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            AddToInput(3);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            AddToInput(4);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            AddToInput(5);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            AddToInput(6);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            AddToInput(7);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            AddToInput(8);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            AddToInput(9);
+            if (Input.GetKeyDown(key))
+            {
+                AddToInput((char)key);
+                break;
+            }
         }
     }
 
-    public void AddToInput(int number)
+    public void AddToInput(char letter)
     {
-        PlayerInput.Add(number);
+        PlayerInput.Add(letter);
+        Debug.Log($"Added letter: {letter}");
 
         if (PlayerInput.Count == CorrectCode.Count)
         {
             CheckInput();
         }
     }
+
     public void CheckInput()
     {
         for (int i = 0; i < CorrectCode.Count; i++)
@@ -68,7 +49,10 @@ public class CodeInput : MonoBehaviour
                 return;
             }
         }
-        Debug.Log("Correct code---You eacaped!!");
+
+        Debug.Log("Correct code --- You escaped!!");
+        gameManager.ShowEndScreen(true);
         PlayerInput.Clear();
     }
 }
+

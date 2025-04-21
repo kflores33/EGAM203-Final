@@ -48,6 +48,15 @@ public class PlayerState : MonoBehaviour
             _jailerBehavior.DistractJailerFor(5f); // distract the jailer for 5 seconds
         }
 
+        if (Input.GetKey(KeyCode.R) && Input.GetKey(KeyCode.T))
+        {
+            ChangeState(PlayerStates.Behaving);
+        }
+        else
+        {
+            ChangeState(PlayerStates.Misbehaving);
+        }
+
         // Catching logic
         if (_jailerBehavior.CurrentState == JailerBehavior.JailerState.Alert &&
             CurrentState == PlayerStates.Misbehaving)
@@ -60,7 +69,7 @@ public class PlayerState : MonoBehaviour
                 if (filterUI != null)
                     filterUI.SetActive(true); // show red filter
 
-                if (timesCaught >= 2 && gameOverPanel != null)
+                if (timesCaught >= 3 && gameOverPanel != null)
                 {
                     gameOverPanel.SetActive(true); // show game over
                 }

@@ -14,8 +14,8 @@ public class JailerBehavior : MonoBehaviour
     public JailerState CurrentState;
 
     public float DefaultTimeToWait = 5f;
-    private float _totalTimeRemaining;     // 统一计时变量
-    private float _footstepDuration;       // 警告阶段长度（仅用于音效淡入）
+    public float _totalTimeRemaining;     // 统一计时变量
+    public float _footstepDuration;       // 警告阶段长度（仅用于音效淡入）
     private bool _footstepStarted = false;
 
     [Header("Footstep Settings")]
@@ -30,7 +30,7 @@ public class JailerBehavior : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.W))
         {
             Debug.Log($"[Debug] H pressed. TotalTimeRemaining: {_totalTimeRemaining:F2}");
             ReduceTimeRemaining(10f);
@@ -41,7 +41,7 @@ public class JailerBehavior : MonoBehaviour
             case JailerState.Away:
                 if (_switchStateCoroutine == null)
                 {
-                    float randomizedTime = Random.Range(10f, 20f);
+                    float randomizedTime = Random.Range(55f, 105f);
                     _switchStateCoroutine = StartCoroutine(CountdownToSwitchState(randomizedTime));
                 }
                 break;

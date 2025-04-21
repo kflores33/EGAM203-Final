@@ -27,7 +27,7 @@ public class ReduceJailerAwayTime : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.H) && jailer.CurrentState == JailerBehavior.JailerState.Away)
         {
-            jailer.ReduceTimeRemaining(10f);
+            jailer.ReduceTimeRemaining(5f);
         }
     }
 }
