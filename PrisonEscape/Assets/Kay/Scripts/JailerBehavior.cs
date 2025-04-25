@@ -87,6 +87,24 @@ public class JailerBehavior : MonoBehaviour
                 if (footstepAudio != null)
                 {
                     footstepAudio.Play();
+
+                    var guardAnim = FindAnyObjectByType<K_GuardAnim>();
+                    if(CurrentState == JailerState.Away)
+                    {
+                        if (guardAnim != null)
+                        {
+                            guardAnim.Do_SlowedAnim();
+                            guardAnim.animator.SetTrigger("Approach");
+                        }
+                    }
+                    else if (CurrentState == JailerState.Alert)
+                    {
+                        if (guardAnim != null)
+                        {
+                            guardAnim.Do_SlowedAnim();
+                            guardAnim.animator.SetTrigger("WalkAway");
+                        }
+                    }
                 }
             }
 
